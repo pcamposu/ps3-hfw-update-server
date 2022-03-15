@@ -1,0 +1,43 @@
+plugins {
+	id 'groovy'
+	id 'org.springframework.boot' version '4.0.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.pcamposu.ps3'
+version = '1.0.0'
+description = 'PS3 HFW Update Server - DNS + HTTP server for HFW distribution'
+
+jar {
+	archiveBaseName = 'hfwserver'
+	archiveVersion = version
+}
+
+bootJar {
+	archiveBaseName = 'hfwserver'
+	archiveVersion = version
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.apache.groovy:groovy'
+	implementation 'dnsjava:dnsjava:3.6.3'
+	implementation 'info.picocli:picocli:4.7.6'
+	annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
